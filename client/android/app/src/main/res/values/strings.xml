@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">qwertybot</string>
+    <string name="title_activity_main">qwertybot</string>
+    <string name="package_name">id.biz.qwertybot</string>
+    <string name="custom_url_scheme">id.biz.qwertybot</string>
+</resources>

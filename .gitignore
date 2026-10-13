@@ -1,0 +1,25 @@
+# Secrets & Environment
+.env
+.env.*
+!.env.example
+
+# User Data & Uploads
+data/
+uploads/
+
+# Dependencies & Build artifacts
+node_modules/
+client/node_modules/
+dist/
+client/dist/
+server/dist/
+output/
+build-output/
+# Secrets & Sensitive Scripts
+deploy_vps.py
+session_dump.json
+check_db.py
+generate_og_image.py
+plan.md
+*.log
+test_*.*

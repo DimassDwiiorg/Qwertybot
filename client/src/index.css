@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --claude-bg: #FAF9F5;
+    --claude-surface: #FFFFFF;
+    --claude-border: #E5E3DB;
+    --claude-text: #23201D;
+    --claude-text-muted: #6B6661;
+    --claude-accent: #DA7756;
+  }
+
+  .dark {
+    --claude-bg: #18181B;
+    --claude-surface: #27272A;
+    --claude-border: #3F3F46;
+    --claude-text: #F4F4F5;
+    --claude-text-muted: #A1A1AA;
+    --claude-accent: #E08264;
+  }
+
+  body {
+    background-color: var(--claude-bg);
+    color: var(--claude-text);
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Custom Claude-style subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.45);
+}
+
+/* Markdown prose styling */
+.markdown-content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.markdown-content p {
+  margin-bottom: 0.75rem;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-content p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: inherit;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-content h1 { font-size: 1.35rem; }
+.markdown-content h2 { font-size: 1.2rem; }
+.markdown-content h3 { font-size: 1.05rem; }
+
+.markdown-content ul,
+.markdown-content ol {
+  margin-left: 1.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-content ul { list-style-type: disc; }
+.markdown-content ol { list-style-type: decimal; }
+
+.markdown-content li {
+  margin-bottom: 0.25rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-content blockquote {
+  border-left: 3px solid #DA7756;
+  padding-left: 0.85rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+  opacity: 0.85;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.markdown-content th,
+.markdown-content td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+.markdown-content th {
+  font-weight: 600;
+}
+
+.markdown-content code:not(pre code) {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85em;
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  background-color: rgba(150, 150, 150, 0.15);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-content pre {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  max-width: 100%;
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.875rem;
+}
+
+/* Sembunyikan dan buang elemen Google One Tap / credential picker yang mengambang di pojok */
+#credential_picker_container,
+div[id*="credential_picker"],
+iframe[id*="credential_picker"],
+iframe[title*="Sign in with Google Dialog"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  z-index: -9999 !important;
+}
+
+/* KaTeX math typography and responsive container */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+  margin: 0.75rem 0 !important;
+  scrollbar-width: thin;
+}
+
+.katex {
+  font-size: 1.05em;
+  color: inherit;
+  white-space: normal;
+}
+

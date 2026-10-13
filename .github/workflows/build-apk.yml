@@ -1,0 +1,72 @@
+name: Build Android APK (qwertybot)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: # Tombol manual "Run workflow" di GitHub Actions tab
+
+jobs:
+  build-apk:
+    name: Build & Package Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Root Dependencies
+        run: |
+          npm install
+
+      - name: Install Client Dependencies
+        run: |
+          cd client
+          npm install
+
+      - name: Build Web Frontend (Vite)
+        run: |
+          cd client
+          npm run build
+
+      - name: Sync Web Assets to Capacitor Android
+        run: |
+          cd client
+          npx cap sync android
+
+      - name: Set Executable Permission for Gradlew
+        run: |
+          chmod +x client/android/gradlew
+
+      - name: Compile Android APK (assembleDebug)
+        run: |
+          cd client/android
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Prepare APK Output
+        run: |
+          mkdir -p output
+          cp client/android/app/build/outputs/apk/debug/app-debug.apk output/qwertybot.apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qwertybot-apk
+          path: output/qwertybot.apk
+          if-no-files-found: error
+          retention-days: 30
