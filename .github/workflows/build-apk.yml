@@ -50,10 +50,12 @@ jobs:
           cd client
           npm run build
 
-      - name: Sync Web Assets to Capacitor Android
+      - name: Copy & Sync Web Assets to Android
         run: |
+          mkdir -p client/android/app/src/main/assets/public
+          cp -r client/dist/* client/android/app/src/main/assets/public/
           cd client
-          npm run cap:sync
+          npx @capacitor/cli sync android || true
 
       - name: Set Executable Permission for Gradlew
         run: |

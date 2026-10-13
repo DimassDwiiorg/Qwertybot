@@ -1,0 +1,16 @@
+# robots.txt for https://qwertybot.biz.id
+User-agent: *
+Allow: /
+Allow: /privacy
+Allow: /terms
+Allow: /og-image.jpg
+Allow: /og-image.png
+Allow: /logo.jpg
+Allow: /favicon.svg
+
+# Protect backend endpoints and private uploads from scrapers
+Disallow: /api/
+Disallow: /uploads/
+
+# XML Sitemap
+Sitemap: https://qwertybot.biz.id/sitemap.xml
