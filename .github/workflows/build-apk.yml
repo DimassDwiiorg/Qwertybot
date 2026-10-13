@@ -11,6 +11,8 @@ jobs:
   build-apk:
     name: Build & Package Android APK
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -79,3 +81,19 @@ jobs:
           path: output/qwertybot.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Publish Direct APK to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.0
+          name: "Qwertybot Android APK v1.0.0"
+          body: |
+            ### 📱 Qwertybot Android App Direct Download
+            
+            Unduh file APK langsung (format .apk, bukan .zip) dan pasang di HP Android kamu:
+            - **qwertybot.apk**
+          files: output/qwertybot.apk
+          overwrite_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
