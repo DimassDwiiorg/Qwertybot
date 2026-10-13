@@ -41,6 +41,10 @@ jobs:
           cd client
           npm install
 
+      - name: Install Global Capacitor CLI
+        run: |
+          npm install -g @capacitor/cli
+
       - name: Build Web Frontend (Vite)
         run: |
           cd client
@@ -49,7 +53,7 @@ jobs:
       - name: Sync Web Assets to Capacitor Android
         run: |
           cd client
-          npx cap sync android
+          npm run cap:sync
 
       - name: Set Executable Permission for Gradlew
         run: |
