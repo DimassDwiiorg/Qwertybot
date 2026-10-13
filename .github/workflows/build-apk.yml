@@ -28,9 +28,10 @@ jobs:
           java-version: 21
           cache: 'gradle'
 
-      - name: Accept Android SDK Licenses
+      - name: Accept Android SDK Licenses & Ensure Platforms
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-36" "build-tools;36.0.0" || true
 
       - name: Install Root Dependencies
         run: |
@@ -64,7 +65,7 @@ jobs:
       - name: Compile Android APK (assembleDebug)
         run: |
           cd client/android
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace -x lint -x test
 
       - name: Prepare APK Output
         run: |
