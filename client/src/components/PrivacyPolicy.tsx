@@ -53,15 +53,15 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-serif font-bold text-base tracking-tight text-[#23201D] dark:text-[#F4F4F5]">
+                <span className="font-semibold text-base tracking-tight text-[#23201D] dark:text-[#F4F4F5]">
                   qwertybot
                 </span>
-                <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                  Pusat Privasi &amp; Hukum
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  Privasi &amp; Ketentuan
                 </span>
               </div>
               <p className="text-[11px] text-[#8C8782] dark:text-[#71717A]">
-                Kepatuhan UU PDP No. 27/2022 &amp; Ketentuan Layanan AI
+                Ketentuan layanan dan perlindungan data pengguna
               </p>
             </div>
           </div>
@@ -70,10 +70,10 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
             {isStandalone ? (
               <a
                 href="/"
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#23201D] dark:bg-[#F4F4F5] text-white dark:text-[#18181B] text-xs font-semibold hover:opacity-90 transition shadow-xs"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#23201D] dark:bg-[#F4F4F5] text-white dark:text-[#18181B] text-xs font-medium hover:opacity-90 transition shadow-xs"
               >
                 <ArrowLeft size={14} />
-                <span>Kembali ke Studio</span>
+                <span>Buka Chat</span>
               </a>
             ) : (
               <button
@@ -99,7 +99,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
             }`}
           >
             <Lock size={14} />
-            <span>1. Kebijakan Privasi (Privacy Policy)</span>
+            <span>1. Kebijakan Privasi</span>
           </button>
           <button
             type="button"
@@ -111,7 +111,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
             }`}
           >
             <Scale size={14} />
-            <span>2. Ketentuan Layanan (Terms of Service)</span>
+            <span>2. Ketentuan Layanan</span>
           </button>
         </nav>
 
@@ -122,30 +122,30 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
             <div className="p-3.5 rounded-2xl bg-white dark:bg-[#202024] border border-[#E5E3DB] dark:border-[#27272A] shadow-2xs space-y-1">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#23201D] dark:text-[#F4F4F5]">
                 <ShieldCheck size={16} className="text-emerald-500" />
-                <span>Zero Data Selling</span>
+                <span>Tidak Menjual Data</span>
               </div>
               <p className="text-[11px] text-[#8C8782] dark:text-[#71717A] leading-relaxed">
-                Percakapan dan identitas Anda tidak pernah diperjualbelikan kepada broker data atau perusahaan iklan mana pun.
+                Obrolan dan data Anda tidak pernah dijual atau diserahkan ke pihak pengiklan mana pun.
               </p>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-white dark:bg-[#202024] border border-[#E5E3DB] dark:border-[#27272A] shadow-2xs space-y-1">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#23201D] dark:text-[#F4F4F5]">
                 <Server size={16} className="text-[#DA7756]" />
-                <span>Sandbox Berkas Acak</span>
+                <span>Penyimpanan Aman</span>
               </div>
               <p className="text-[11px] text-[#8C8782] dark:text-[#71717A] leading-relaxed">
-                Dokumen dan audio diisolasi dengan penamaan kriptografis UUID acak dan whitelist ekstensi file ketat.
+                File upload diproteksi dengan penamaan acak dan hanya bisa diakses saat sesi chat Anda aktif.
               </p>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-white dark:bg-[#202024] border border-[#E5E3DB] dark:border-[#27272A] shadow-2xs space-y-1">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#23201D] dark:text-[#F4F4F5]">
                 <Scale size={16} className="text-blue-500" />
-                <span>Kepatuhan UU PDP RI</span>
+                <span>Kontrol Penuh Pengguna</span>
               </div>
               <p className="text-[11px] text-[#8C8782] dark:text-[#71717A] leading-relaxed">
-                Sesuai dengan Undang-Undang Perlindungan Data Pribadi No. 27/2022 dan regulasi ITE Republik Indonesia.
+                Anda bebas menghapus riwayat atau mengekspor isi percakapan kapan saja tanpa halangan.
               </p>
             </div>
           </div>
