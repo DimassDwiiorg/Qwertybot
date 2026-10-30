@@ -12,7 +12,8 @@ import {
   Pencil,
   Check,
   Shield,
-  ExternalLink
+  ExternalLink,
+  Bot
 } from 'lucide-react';
 import { Logo } from './Logo.js';
 import { SessionSummary, ThemePreference, GoogleUser } from '../types/index.js';
@@ -31,6 +32,7 @@ interface SidebarProps {
   user?: GoogleUser | null;
   onLogout?: () => void;
   onOpenPrivacy?: () => void;
+  onOpenAbout?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -46,7 +48,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onClose,
   user,
   onLogout,
-  onOpenPrivacy
+  onOpenPrivacy,
+  onOpenAbout
 }) => {
   const [sessionCodeInput, setSessionCodeInput] = useState('');
   const [showJoinInput, setShowJoinInput] = useState(false);
@@ -137,6 +140,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <Plus size={16} className="text-[#DA7756]" />
             <span>Chat Baru</span>
           </button>
+
+          {/* Tombol Menuju Zero AI Pentester (Hanya muncul di dalam drawer garis 3) */}
+          <a
+            href="https://zero.qwertybot.biz.id"
+            className="w-full py-2 px-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 hover:border-red-500/50 text-red-600 dark:text-red-400 font-medium text-xs flex items-center justify-between shadow-xs transition-all group"
+            title="Buka Zero - AI Whitehat Pentester (zero.qwertybot.biz.id)"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+              <Shield size={14} className="text-red-500 group-hover:scale-110 transition-transform shrink-0" />
+              <div className="text-left truncate">
+                <div className="font-semibold font-mono tracking-tight text-[11px] leading-tight">Zero AI Pentester</div>
+                <div className="text-[9px] text-[#8C8782] dark:text-[#71717A] leading-tight">Audit Celah & Pre-Publish Web</div>
+              </div>
+            </div>
+            <ExternalLink size={12} className="opacity-60 group-hover:opacity-100 transition-opacity shrink-0 ml-1" />
+          </a>
 
           {/* Kotak Pencarian Chat */}
           <div className="relative">
@@ -415,21 +438,43 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </button>
           </div>
 
-          {/* Creator Credit */}
-          <div className="mt-3 pt-2.5 border-t border-[#E5E3DB]/60 dark:border-[#27272A]/80 flex items-center justify-between text-[11px] text-[#8C8782] dark:text-[#71717A] px-1">
-            <span>Dirancang oleh</span>
-            <a
-              href="https://github.com/DimassDwiiorg"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 font-medium text-[#23201D] dark:text-[#F4F4F5] hover:text-[#DA7756] dark:hover:text-[#DA7756] transition-colors"
-              title="Kunjungi GitHub Dimas Dwi Syahputra"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0">
-                <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-              </svg>
-              <span>Dimas Dwi Syahputra</span>
-            </a>
+          {/* Creator & About Credit */}
+          <div className="mt-3 pt-2.5 border-t border-[#E5E3DB]/60 dark:border-[#27272A]/80 space-y-1.5 text-[11px] text-[#8C8782] dark:text-[#71717A] px-1">
+            <div className="flex items-center justify-between">
+              <span>Owner &amp; Developer</span>
+              <button
+                type="button"
+                onClick={onOpenAbout}
+                className="flex items-center gap-1.5 font-medium text-[#23201D] dark:text-[#F4F4F5] hover:text-[#DA7756] dark:hover:text-[#DA7756] transition-colors"
+                title="Buka Profil Dimas Dwi Syahputra (Owner qwertybot)"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0 text-[#DA7756]">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+                <span>Dimas Dwi Syahputra</span>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between pt-1">
+              <button
+                type="button"
+                onClick={onOpenAbout}
+                className="flex items-center gap-1.5 hover:text-[#DA7756] dark:hover:text-[#DA7756] transition-colors"
+                title="Tentang qwertybot (Bot Qwerty)"
+              >
+                <Bot size={11} className="text-[#DA7756]" />
+                <span>Tentang Bot Qwerty</span>
+              </button>
+              <a
+                href="/about"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#23201D] dark:hover:text-[#F4F4F5] transition p-0.5 rounded"
+                title="Buka Halaman Tentang di Tab Baru"
+              >
+                <ExternalLink size={10} />
+              </a>
+            </div>
           </div>
 
           {/* Kebijakan Privasi & Ketentuan */}

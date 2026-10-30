@@ -5,6 +5,7 @@ import { MessageInput } from './components/MessageInput.js';
 import { VpsAuthModal } from './components/VpsAuthModal.js';
 import { ArtifactModal, ArtifactData } from './components/ArtifactModal.js';
 import { PrivacyPolicy } from './components/PrivacyPolicy.js';
+import { AboutModal } from './components/AboutModal.js';
 import { useTheme } from './hooks/useTheme.js';
 import { SessionSummary, SessionDetails, AttachmentMeta, ChatMessage, GoogleUser, QuotaInfo } from './types/index.js';
 import { apiUrl } from './utils/api.js';
@@ -74,7 +75,9 @@ export function App() {
   const [activeToolEvent, setActiveToolEvent] = useState<{ name: string; args?: any; status: 'running' | 'done' } | null>(null);
   const [activeArtifact, setActiveArtifact] = useState<ArtifactData | null>(null);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const isStandalonePrivacy = typeof window !== 'undefined' && (window.location.pathname === '/privacy' || window.location.pathname === '/terms');
+  const isStandaloneAbout = typeof window !== 'undefined' && window.location.pathname === '/about';
 
   // Emergency cache reset if ?reset=1 is in URL
   useEffect(() => {
@@ -730,6 +733,16 @@ export function App() {
     }
   };
 
+  if (isStandaloneAbout) {
+    return (
+      <AboutModal
+        isOpen={true}
+        onClose={() => { window.location.href = '/'; }}
+        isStandalone={true}
+      />
+    );
+  }
+
   if (isStandalonePrivacy) {
     return (
       <PrivacyPolicy
@@ -764,6 +777,7 @@ export function App() {
         user={user}
         onLogout={handleLogout}
         onOpenPrivacy={() => setIsPrivacyOpen(true)}
+        onOpenAbout={() => setIsAboutOpen(true)}
       />
 
       {/* Konten Percakapan Utama */}
@@ -820,6 +834,13 @@ export function App() {
       <PrivacyPolicy
         isOpen={isPrivacyOpen}
         onClose={() => setIsPrivacyOpen(false)}
+        isStandalone={false}
+      />
+
+      {/* Tentang & Profil Pemilik (Owner) Modal */}
+      <AboutModal
+        isOpen={isAboutOpen}
+        onClose={() => setIsAboutOpen(false)}
         isStandalone={false}
       />
     </div>

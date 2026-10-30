@@ -380,11 +380,15 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
               <Logo size={56} />
             </div>
 
-            <h1 className="text-2xl font-serif font-medium tracking-tight text-[#23201D] dark:text-[#F4F4F5] mb-2">
-              Halo, saya <span className="text-[#DA7756]">qwertybot</span>
+            <h1 className="text-2xl font-serif font-medium tracking-tight text-[#23201D] dark:text-[#F4F4F5] mb-1 flex items-center justify-center gap-2 flex-wrap">
+              <span>Halo, saya</span>
+              <span className="text-[#DA7756]">qwertybot</span>
+              <span className="text-xs font-sans font-medium px-2 py-0.5 rounded-full bg-[#DA7756]/10 text-[#DA7756] border border-[#DA7756]/20">
+                Bot Qwerty
+              </span>
             </h1>
-            <p className="text-sm text-[#65605B] dark:text-[#A1A1AA] max-w-md mb-8 leading-relaxed">
-              Saya adalah asisten AI multimodal cerdas yang siap membantu Anda menganalisis teks, gambar, berkas dokumen, kode program, dan rekaman suara (VN).
+            <p className="text-xs sm:text-sm text-[#65605B] dark:text-[#A1A1AA] max-w-md mb-8 leading-relaxed">
+              Asisten AI multimodal cerdas karya <strong className="text-[#23201D] dark:text-[#F4F4F5]">Dimas Dwi Syahputra</strong> yang siap membantu Anda menganalisis teks, berkas dokumen, gambar, kode program, dan pesan suara (VN).
             </p>
 
             {/* Grid Kartu Fitur */}
@@ -431,7 +435,7 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
             </div>
 
             {/* Rekomendasi Prompt */}
-            <div className="flex flex-wrap justify-center gap-2 max-w-lg">
+            <div className="flex flex-wrap justify-center gap-2 max-w-xl">
               <button
                 onClick={() => onSendPresetMessage('Buatkan saya tampilan kartu profil modern dengan tombol interaktif menggunakan HTML dan Tailwind CSS')}
                 className="py-1.5 px-3 rounded-full text-xs bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[#65605B] dark:text-[#A1A1AA] transition-colors"
@@ -439,10 +443,16 @@ export const ChatFeed: React.FC<ChatFeedProps> = ({
                 ✨ Buat Web UI (Artifacts)
               </button>
               <button
-                onClick={() => onSendPresetMessage('Jelaskan apa saja kemampuan qwertybot dan bagaimana kamu bisa membantu saya hari ini?')}
+                onClick={() => onSendPresetMessage('Siapa Dimas Dwi Syahputra dan apa perannya di balik website bot qwerty ini?')}
+                className="py-1.5 px-3 rounded-full text-xs bg-[#DA7756]/10 hover:bg-[#DA7756]/15 text-[#DA7756] border border-[#DA7756]/20 font-medium transition-colors"
+              >
+                👤 Siapa Dimas Dwi Syahputra?
+              </button>
+              <button
+                onClick={() => onSendPresetMessage('Jelaskan apa saja kemampuan bot qwerty (qwertybot) dan bagaimana kamu bisa membantu saya hari ini?')}
                 className="py-1.5 px-3 rounded-full text-xs bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[#65605B] dark:text-[#A1A1AA] transition-colors"
               >
-                💡 Kemampuan qwertybot
+                💡 Kemampuan Bot Qwerty
               </button>
               <button
                 onClick={() => onSendPresetMessage('Bagaimana cara mengirim voice note dan dokumen PDF ke kamu?')}

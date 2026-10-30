@@ -1,10 +1,13 @@
 # robots.txt for https://qwertybot.biz.id
 User-agent: *
 Allow: /
+Allow: /about
 Allow: /privacy
 Allow: /terms
 Allow: /og-image.jpg
 Allow: /og-image.png
+Allow: /og-banner-hd.jpg
+Allow: /og-banner-hd.png
 Allow: /logo.jpg
 Allow: /favicon.svg
 
