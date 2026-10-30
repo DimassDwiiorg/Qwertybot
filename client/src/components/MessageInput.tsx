@@ -12,6 +12,7 @@ interface MessageInputProps {
   quota?: QuotaInfo | null;
   user?: GoogleUser | null;
   onOpenPrivacy?: () => void;
+  onOpenLoginConsent?: () => void;
 }
 
 export const MessageInput: React.FC<MessageInputProps> = ({
@@ -20,7 +21,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   onStopGeneration,
   quota,
   user,
-  onOpenPrivacy
+  onOpenPrivacy,
+  onOpenLoginConsent
 }) => {
   const [text, setText] = useState('');
   const [attachments, setAttachments] = useState<AttachmentMeta[]>([]);
@@ -114,7 +116,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (isLoading || isRecording || isQuotaExhausted) return;
+    if (isLoading || isRecording) return;
+    if (isQuotaExhausted) {
+      if (!user && onOpenLoginConsent) {
+        onOpenLoginConsent();
+      }
+      return;
+    }
     if (!text.trim() && attachments.length === 0) return;
 
     onSendMessage(text, attachments);
@@ -157,10 +165,14 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             </div>
           </div>
           {!user && (
-            <div className="text-[11px] font-medium text-[#DA7756] bg-white dark:bg-[#18181B] px-2.5 py-1 rounded-xl border border-[#DA7756]/30 shrink-0 flex items-center gap-1 shadow-2xs">
+            <button
+              type="button"
+              onClick={onOpenLoginConsent}
+              className="text-[11px] font-semibold text-[#DA7756] bg-white dark:bg-[#18181B] px-3 py-1.5 rounded-xl border border-[#DA7756]/30 hover:bg-[#DA7756]/10 shrink-0 flex items-center gap-1.5 shadow-2xs transition cursor-pointer"
+            >
               <Sparkles size={12} />
-              <span>Login Google untuk +15% kuota</span>
-            </div>
+              <span>Masuk Google (+15% kuota)</span>
+            </button>
           )}
         </div>
       )}

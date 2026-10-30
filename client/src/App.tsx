@@ -6,6 +6,7 @@ import { VpsAuthModal } from './components/VpsAuthModal.js';
 import { ArtifactModal, ArtifactData } from './components/ArtifactModal.js';
 import { PrivacyPolicy } from './components/PrivacyPolicy.js';
 import { AboutModal } from './components/AboutModal.js';
+import { LoginConsentModal } from './components/LoginConsentModal.js';
 import { useTheme } from './hooks/useTheme.js';
 import { SessionSummary, SessionDetails, AttachmentMeta, ChatMessage, GoogleUser, QuotaInfo } from './types/index.js';
 import { apiUrl } from './utils/api.js';
@@ -76,6 +77,7 @@ export function App() {
   const [activeArtifact, setActiveArtifact] = useState<ArtifactData | null>(null);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isLoginConsentOpen, setIsLoginConsentOpen] = useState(false);
   const isStandalonePrivacy = typeof window !== 'undefined' && (window.location.pathname === '/privacy' || window.location.pathname === '/terms');
   const isStandaloneAbout = typeof window !== 'undefined' && window.location.pathname === '/about';
 
@@ -250,6 +252,7 @@ export function App() {
       setUser(googleUser);
       localStorage.setItem('qwertybot-user', JSON.stringify(googleUser));
       fetchQuota(googleUser.sub, true);
+      setIsLoginConsentOpen(false);
       try {
         if (window.google?.accounts?.id?.cancel) {
           window.google.accounts.id.cancel();
@@ -546,6 +549,9 @@ export function App() {
     if (!activeSession) return;
 
     if (!isOwner && !quota?.isUnlimited && quota && quota.remaining <= 0) {
+      if (!user) {
+        setIsLoginConsentOpen(true);
+      }
       showToast(`Batas kuota pesan AI Anda habis (${quota.usedCount}/${quota.maxQuota}). Reset dalam ${quota.formattedResetTime}.`);
       return;
     }
@@ -643,6 +649,9 @@ export function App() {
                 const payload = JSON.parse(trimmed.slice(6));
                 if (payload.quota) {
                   setQuota(payload.quota);
+                  if (!user && !isOwner && !payload.quota.isUnlimited && payload.quota.remaining <= 0) {
+                    setIsLoginConsentOpen(true);
+                  }
                 }
                 if (currentEvent === 'tool_call') {
                   setActiveToolEvent({ name: payload.name, args: payload.args, status: 'running' });
@@ -686,6 +695,9 @@ export function App() {
         const data = await res.json();
         if (data.quota) {
           setQuota(data.quota);
+          if (!user && !isOwner && !data.quota.isUnlimited && data.quota.remaining <= 0) {
+            setIsLoginConsentOpen(true);
+          }
         }
         if (data.success) {
           setActiveSession(prev => {
@@ -702,6 +714,9 @@ export function App() {
           showToast(data.error || 'Terjadi kesalahan saat memproses pesan.');
           if (data.quotaExhausted) {
             await fetchQuota();
+            if (!user && !isOwner) {
+              setIsLoginConsentOpen(true);
+            }
           }
           setActiveSession(prev => {
             if (!prev) return null;
@@ -808,6 +823,7 @@ export function App() {
           quota={quota}
           user={user}
           onOpenPrivacy={() => setIsPrivacyOpen(true)}
+          onOpenLoginConsent={() => setIsLoginConsentOpen(true)}
         />
       </main>
 
@@ -842,6 +858,14 @@ export function App() {
         isOpen={isAboutOpen}
         onClose={() => setIsAboutOpen(false)}
         isStandalone={false}
+      />
+
+      {/* Modal Konfirmasi Persetujuan Privasi & Login Saat Kuota Habis */}
+      <LoginConsentModal
+        isOpen={isLoginConsentOpen}
+        onClose={() => setIsLoginConsentOpen(false)}
+        quota={quota}
+        preference={preference}
       />
     </div>
   );
